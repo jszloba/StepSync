@@ -1,4 +1,3 @@
-import {ImgProps} from "next/dist/shared/lib/get-img-props";
 
 interface Board {
     columns: Map<TypedColumn, Column>
@@ -11,11 +10,11 @@ interface Column {
     todos: Todo[]
 }
 
-interface Todo  {
+interface Todo {
     $id: string,
     $createdAt: string,
     title: string,
-    status: TypedColumn;
+    status: TypedColumn
     image?: Image;
 }
 

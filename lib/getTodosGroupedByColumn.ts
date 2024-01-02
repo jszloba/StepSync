@@ -1,5 +1,4 @@
 import {databases} from "@/appwrite";
-import {Board, Column, TypedColumn} from "@/typings";
 
 export const getTodosGroupedByColumn = async() => {
     const data = await databases.listDocuments(
@@ -8,6 +7,8 @@ export const getTodosGroupedByColumn = async() => {
     );
 
     const todos = data.documents;
+
+    console.log(todos)
 
     const columns = todos.reduce((acc, todo) => {
         if (!acc.get(todo.status)) {
@@ -22,7 +23,7 @@ export const getTodosGroupedByColumn = async() => {
             $createdAt:todo.$createdAt,
             title: todo.title,
             status: todo.status,
-            ...(todo.image && { image: JSON.parse(todo.image)})
+            ...(todo.image && { image: JSON.parse(todo.image) })
 
         })
 
