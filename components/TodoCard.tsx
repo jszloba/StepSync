@@ -11,6 +11,9 @@ type Props = {
     dragHandleProps: DraggableProvidedDragHandleProps | null | undefined;
 
 }
+
+// eslint-disable-next-line react-hooks/rules-of-hooks
+
 export const TodoCard: React.FC<Props> = ({
     todo,
     index,
@@ -19,6 +22,8 @@ export const TodoCard: React.FC<Props> = ({
     dragHandleProps,
     draggableProps
 }) => {
+
+
     return (
         <div
             className="bg-white rounded-md space-y-2 drop-shadow-md"
