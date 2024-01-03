@@ -4,6 +4,7 @@ import {databases} from "@/appwrite";
 import uploadImage from "@/lib/uploadImage";
 import {ID} from "appwrite";
 
+
 interface BoardState {
     board: Board;
     getBoard: () => void;
@@ -77,6 +78,34 @@ export const useBoardStore = create<BoardState>((set) => ({
 
         set({newTaskInput: ""})
 
+        set((state) => {
+            const newColumns = new Map(state.board.columns)
+
+            const newTodo: Todo = {
+                $id,
+                $createdAt: new Date().toISOString(),
+                title: todo,
+                status: columnId,
+                ...(file && { image: file})
+            }
+
+            const column = newColumns.get(columnId);
+            if (!column) {
+                newColumns.set(columnId, {
+                    id: columnId,
+                    todos: [newTodo]
+                });
+            } else {
+                newColumns.get(columnId)?.todos.push(newTodo)
+            }
+
+            return {
+                board: {
+                    columns: newColumns,
+                }
+            }
+
+        })
 
     }
 

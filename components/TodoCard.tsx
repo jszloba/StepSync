@@ -1,6 +1,8 @@
 import {DraggableProvidedDraggableProps, DraggableProvidedDragHandleProps} from "react-beautiful-dnd";
 import React from "react";
 import {XCircleIcon} from "@heroicons/react/16/solid";
+import getUrl from "@/lib/getUrl";
+import Image from "next/image";
 
 type Props = {
     todo: Todo;
@@ -23,6 +25,23 @@ export const TodoCard: React.FC<Props> = ({
     draggableProps
 }) => {
 
+    const [imageUrl, setImageUrl] = React.useState<string | null>(null)
+
+
+    React.useEffect(() => {
+        if (todo.image) {
+            const fetchImage = async () => {
+                const url = await getUrl(todo.image!);
+                if (url) {
+                    setImageUrl(url.toString());
+                }
+            }
+
+            fetchImage()
+        }
+
+
+    }, [todo])
 
     return (
         <div
@@ -40,6 +59,20 @@ export const TodoCard: React.FC<Props> = ({
                     />
                 </button>
             </div>
+
+            {imageUrl && (
+                <div className="h-full w-full rounded-b-md">
+                    <Image
+                        src={imageUrl}
+                        alt="task image"
+                        width={400}
+                        height={200}
+                        className="w-full object-contain rounded-b-md"
+
+                    />
+                </div>
+            )}
+
 
 
         </div>

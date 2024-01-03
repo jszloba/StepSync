@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
       images: {
-          domains: ["jetbrains.com"],
+          domains: ["cloud.appwrite.io", "jetbrains.com"],
       },
     reactStrictMode: false,
 }

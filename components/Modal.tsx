@@ -11,9 +11,10 @@ import {PhotoIcon} from "@heroicons/react/24/solid";
 export const Modal = () => {
     const imagePickerRef = React.useRef<HTMLInputElement>(null)
 
-    const [addTask, image, setImage, newTaskInput, setNewTaskInput] = useBoardStore((state) => [
+    const [addTask, image, newTaskType, setImage, newTaskInput, setNewTaskInput] = useBoardStore((state) => [
         state.addTask,
         state.image,
+        state.newTaskType,
         state.setImage,
         state.newTaskInput,
         state.setNewTaskInput,
@@ -27,12 +28,14 @@ export const Modal = () => {
         e.preventDefault();
         if (!newTaskInput) return;
 
+        addTask(newTaskInput, newTaskType, image)
+
+
         setImage(null);
         closeModal();
     }
 
     return (
-        // Use the `Transition` component at the root level
         <Transition appear show={isOpen} as={Fragment}>
             <Dialog onClose={closeModal} as="form" className="relative z-10" onSubmit={handleSubmit}>
                 <Transition.Child
